@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+PROTOCOL="http://"
+HOST="sonos.relaxpc.com:5005/"
+PLAYER="Carpet%20Bar"
+
+########################################
+# END CUSTOMIZATION
+########################################
+
+BASE=$PROTOCOL$HOST$PLAYER
+echo "Base: $BASE"
+
+while true;
+do
+  read -n 1 c
+  echo "You said $c"
+  case $c in
+    " ")
+      echo "Space!"
+      ;;
+    [1]*)
+      echo 1
+      command="$BASE/play/America"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    "q"*)
+      echo "Done."
+      exit
+  esac
+done
