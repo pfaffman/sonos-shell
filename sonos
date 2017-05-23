@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 PROTOCOL="http://"
-HOST="sonos.relaxpc.com:5005/"
+HOST="localhost:5005/"
 PLAYER="Carpet%20Bar"
 
 ########################################
@@ -13,19 +13,86 @@ echo "Base: $BASE"
 while true;
 do
   read -n 1 c
-  echo "You said $c"
-  case $c in
-    " ")
+  echo "You said |$c|"
+  case "$c" in
+    [sS]|" ")
       echo "Space!"
-      ;;
-    [1]*)
-      echo 1
-      command="$BASE/play/America"
+      command="$BASE/playpause"
       echo "Doing: $command"
       curl $command
       ;;
-    "q"*)
+    [aA]*)
+      echo
+      command="$BASE/play/favorites/America"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    [pP]*)
+      echo
+      command="$BASE/play"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    [nN]|">"*)
+      echo
+      command="$BASE/next"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    "<"*)
+      echo
+      command="$BASE/previous"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    ","*)
+      echo
+      command="$BASE/timeseek/0"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    [kK]*)
+      echo
+      command="$BASE/tunein/play/s35921"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    [q]*)
+      echo
+      command="$BASE/tunein/play/s34804"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    [0-9]*)
+      command="$BASE/volume/${c}0"
+      echo "Got $c. Doing: $command"
+      curl $command
+      ;;
+    [+-]*)
+      command="$BASE/volume/${c}1"
+      echo "Got $c. Doing: $command"
+      curl $command
+      ;;
+    [t]*)
+      time=`date +%H%M`
+      command="$BASE/pauseall"
+      echo "Got $c. Doing: $command"
+      curl $command
+      command="$BASE/say/The%20time%20is%20$time/en/60"
+      echo "Got $c. Doing: $command"
+      curl $command
+      command="$BASE/resumeall"
+      echo "Got $c. Doing: $command"
+      curl $command
+      ;;
+    [?]*)
+      command="$BASE/sleep/60"
+      echo "Got $c. Doing: $command"
+      curl $command
+      ;;
+    "Q"*)
       echo "Done."
       exit
   esac
+  echo
 done
