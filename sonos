@@ -142,5 +142,7 @@ do
       echo "Done."
       exit
   esac
-  echo
+  command="$BASE/say/sonos-script-exiting/en/60"
+  echo "Doing: $command"
+  curl $command
 done
