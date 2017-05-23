@@ -123,15 +123,15 @@ do
       ;;
     [t]*)
       time=`date +%R`
-      command="$BASE/pauseall"
-      echo "Got $c. Doing: $command"
-      curl $command
+      # command="$BASE/pauseall"
+      # echo "Got $c. Doing: $command"
+      # curl $command
       command="$BASE/say/The%20time%20is%20$time/en/60"
       echo "Doing: $command"
       curl $command
-      command="$BASE/resumeall"
-      echo "Doing: $command"
-      curl $command
+      # command="$BASE/resumeall"
+      # echo "Doing: $command"
+      # curl $command
       ;;
     [?]*)
       command="$BASE/sleep/60"
