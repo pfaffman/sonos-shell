@@ -15,7 +15,7 @@ do
   read -n 1 c
   echo "You said |$c|"
   case "$c" in
-    [sS]|" ")
+    [S]|" ")
       echo "Space!"
       command="$BASE/playpause"
       echo "Doing: $command"
@@ -39,6 +39,12 @@ do
       echo "Doing: $command"
       curl $command
       ;;
+    [*]|">"*)
+      echo
+      command="$BASE/state"
+      echo "Doing: $command"
+      curl $command
+      ;;
     "<"*)
       echo
       command="$BASE/previous"
@@ -51,15 +57,54 @@ do
       echo "Doing: $command"
       curl $command
       ;;
-    [kK]*)
+    [kK]*) # kunr
       echo
-      command="$BASE/tunein/play/s35921"
+      command="$BASE/tunein/play/35921"
       echo "Doing: $command"
       curl $command
       ;;
-    [q]*)
+    [q]*) # kqed
       echo
-      command="$BASE/tunein/play/s34804"
+      command="$BASE/tunein/play/34804"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    [b]*) # kcrw
+      echo
+      command="$BASE/tunein/play/44525"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    [B]*) # back some seconds
+      REWIND=30
+      echo Going BACK!
+      ELAPSED=`curl -s http://blackbox.relaxpc.com:5005/Carpet%20Bar/state|sed -e 's/.*\"elapsedTime\":\([0-9]*\).*/\1/'`
+      echo ELAPSED: $ELAPSED
+      if [ "$ELAPSED" -gt "$REWIND" ]
+      then
+	  BACK=$(($ELAPSED-$REWIND))
+      else
+	BACK=0
+      fi
+      command="$BASE/timeseek/$BACK"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    [l]*)
+      echo
+      command="$BASE/musicsearch/library/album/blues+five+spot"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    [y]*) # wnyc
+      echo
+      command="$BASE/tunein/play/21606"
+      echo "Doing: $command"
+      curl $command
+      ;;
+    [s]*) # stories
+      echo
+      command="$BASE/favorite/Stories"
       echo "Doing: $command"
       curl $command
       ;;
@@ -74,15 +119,15 @@ do
       curl $command
       ;;
     [t]*)
-      time=`date +%H%M`
+      time=`date +%R`
       command="$BASE/pauseall"
       echo "Got $c. Doing: $command"
       curl $command
       command="$BASE/say/The%20time%20is%20$time/en/60"
-      echo "Got $c. Doing: $command"
+      echo "Doing: $command"
       curl $command
       command="$BASE/resumeall"
-      echo "Got $c. Doing: $command"
+      echo "Doing: $command"
       curl $command
       ;;
     [?]*)
