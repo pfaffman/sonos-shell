@@ -9,6 +9,9 @@ PLAYER="Carpet%20Bar"
 
 BASE=$PROTOCOL$HOST$PLAYER
 echo "Base: $BASE"
+command="$BASE/say/Ready%20to%20serve%20you/en/60"
+echo "Doing: $command"
+curl $command
 
 while true;
 do
