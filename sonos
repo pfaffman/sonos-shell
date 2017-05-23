@@ -144,6 +144,6 @@ do
   esac
 done
 
-command="$BASE/say/sonos%20script%20exiting/en/60"
+command="$BASE/say/goodbye/en/60"
 echo "Doing: $command"
 curl $command
