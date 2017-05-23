@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 PROTOCOL="http://"
-HOST="localhost:5005/"
+HOST="blackbox.relaxpc.com:5005/"
 PLAYER="Carpet%20Bar"
 
 ########################################
