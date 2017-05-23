@@ -140,9 +140,10 @@ do
       ;;
     "Q"*)
       echo "Done."
-      exit
+      break
   esac
 done
-command="$BASE/say/sonos-script-exiting/en/60"
+
+command="$BASE/say/sonos%20script%20exiting/en/60"
 echo "Doing: $command"
 curl $command
