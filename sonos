@@ -9,12 +9,14 @@ PLAYER="Carpet%20Bar"
 
 BASE=$PROTOCOL$HOST$PLAYER
 echo "Base: $BASE"
-command="$BASE/say/Ready%20to%20serve%20you/en/60"
+command="$BASE/say/Ready%20to%20serve%20you/en-gb/80"
+
 echo "Doing: $command"
 curl $command
 
 while true;
 do
+  echo Listening
   read -n 1 c
   echo "You said |$c|"
   case "$c" in
@@ -126,7 +128,7 @@ do
       # command="$BASE/pauseall"
       # echo "Got $c. Doing: $command"
       # curl $command
-      command="$BASE/say/The%20time%20is%20$time/en/60"
+      command="$BASE/say/The%20time%20is%20$time/en-gb/60"
       echo "Doing: $command"
       curl $command
       # command="$BASE/resumeall"
@@ -144,6 +146,7 @@ do
   esac
 done
 
-command="$BASE/say/goodbye/en/60"
+command="$BASE/say/mirupafshim/sq/70"
+command="$BASE/say/ta-ta%20for%20now/en-gb/70"
 echo "Doing: $command"
 curl $command
